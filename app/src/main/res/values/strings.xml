@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Jäger</string>
+    <string name="zoom_fit">Fit</string>
+    <string name="zoom_crop">Zoom</string>
+    <string name="boost_off">Boost: Off</string>
+    <string name="boost_on">Boost: +10dB</string>
+    <string name="tracks">Tracks</string>
+    <string name="speed_format">Speed: %.1fx</string>
+    <string name="brightness_format">Brightness: %d%%</string>
+    <string name="volume_format">Volume: %d%%</string>
+    <string name="seek_format">Seek: %s (%+ds)</string>
+    <string name="pick_video">Select a video file</string>
+</resources>
