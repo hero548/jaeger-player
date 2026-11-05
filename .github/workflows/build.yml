@@ -3,14 +3,11 @@ name: Build Jäger APK
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,13 +17,19 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+      # Automatically creates gradlew in the cloud if you didn't upload it
+      - name: Generate Gradle Wrapper if Missing
+        run: |
+          if [ ! -f "./gradlew" ]; then
+            gradle wrapper --gradle-version 8.10.2
+          fi
+          chmod +x ./gradlew
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
@@ -36,4 +39,3 @@ jobs:
         with:
           name: jaeger-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 30
